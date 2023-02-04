@@ -9,6 +9,10 @@ public class PersuerChase : MonoBehaviour
     public Transform target; //要追捕的对象
     private Rigidbody2D rb2D;
 
+    public float jumpForce;//jump force
+
+    Ray2D ray;
+
 
     // Start is called before the first frame update
     void Start()
@@ -40,5 +44,24 @@ public class PersuerChase : MonoBehaviour
         else{
             transform.GetComponent<SpriteRenderer>().flipX = false;
         }
+
+    
+
+        //如果射线检测到了platform tag的collider，就会跳跃
+        ray=new Ray2D(transform.position,Vector2.right);
+		RaycastHit2D info=Physics2D.Raycast(ray.origin,ray.direction, 3.0f);
+		Debug.DrawRay(ray.origin,ray.direction,Color.blue);
+ 
+		if(info.collider!=null){
+			if(info.transform.gameObject.CompareTag("Platform")){
+				Debug.LogWarning("前方有障碍");
+                rb2D.velocity = new Vector2(rb2D.velocity.x, jumpForce); //向上跳
+			}else{
+				Debug.Log("检测到其他对象");
+			}
+		}else{
+			Debug.Log("没有碰撞任何对象");
+		}
+
     }
 }

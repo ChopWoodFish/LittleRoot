@@ -95,6 +95,10 @@ public class RootGrow : MonoBehaviour
 
         // 重新设置角色位置
         UpdatePlayerPos();
+        
+        // todo 试试生长动画
+        // Transform rootTrans = newRoot.rootSprite.transform;
+        // rootTrans.localScale = new Vector3(1, 0, 1);
 
 
         isRooting = true;
@@ -105,69 +109,37 @@ public class RootGrow : MonoBehaviour
 
     public void Swing(float dir)
     {
-        roots.Last().Swing(dir);
+        roots.First().Swing(dir);
         UpdatePlayerPos();
     }
 
     public void TryGrowRoot()
     {
-        var verticalMove = Input.GetAxisRaw("Vertical");
-        var HorizontalMove = Input.GetAxisRaw("Horizontal");
-
-        if (HorizontalMove != 0)
-        {
-            Swing(HorizontalMove);
-        }
+        if(rootNum >= rootNumMax) return;
         
+        var newRoot = Instantiate(rootPrefab).GetComponent<Root>();
 
-        if (verticalMove == 0)
+        newRoot.rootController = this;
+        newRoot.index = rootNum;
+        // todo 动态长度
+        newRoot.len = 2f;
+        rootNum++;
+
+        startPoint.Insert(0, roots.First().startPoint);
+        newRoot.InitRootWithStart(startPoint[0]);
+        roots[0].transform.SetParent(newRoot.transform);
+        roots.Insert(0, newRoot);
+
+        // 插入新根以后，重新计算所有根的点
+        for (int i = 1; i < roots.Count; i++)
         {
-            // 不动
-            rb.velocity = Vector2.zero;
-            return;
+            Root crtRoot = roots[i];
+            Root preRoot = roots[i - 1];
+            crtRoot.InitRootWithStart(preRoot.endPoint);
         }
 
-        if (verticalMove > 0)
-        {
-            // 尝试进入扎根状态
-            if (!isRooting)
-            {
-                TryEnterRoot();
-            }
-            
-            
-            // 不可超出最大长度
-            // if (rootLen >= rootLenMax)
-            // {
-            //     Debug.Log("Hit max root len");
-            //     return;
-            // }
-            
-            // 增加长度，计算根的新形态
-            // todo..
-
-            // rb.velocity = new Vector2(0f, horizontalSpeed);
-            // rootLen += 1;
-            // Debug.Log($"add root len: {rootLen}");
-
-        }
-        else if (verticalMove < 0 && isRooting)
-        {
-            // 减少长度，计算根的新形态
-        //     
-        //     rb.velocity = new Vector2(0f, -horizontalSpeed);
-        //     rootLen -= 1;
-        //     Debug.Log($"sub root len: {rootLen}");
-        //     
-        //     
-        //     // 根长度至0时退出扎根状态
-        //     if (rootLen <= 0)
-        //     {
-        //         Debug.Log("Exit root state");
-        //         isRooting = false;
-        //
-        //     }
-        }
+        // 重新设置角色位置
+        UpdatePlayerPos();
     }
 
     private void TryEnterRoot()
@@ -230,7 +202,8 @@ public class RootGrow : MonoBehaviour
 
     private void UpdatePlayerPos()
     {
-        Vector3 targetPos = roots.Last().endPoint;
+        // Vector3 targetPos = roots.Last().endPoint;
+        Vector3 targetPos = roots.Last().endTrans.position;
         Debug.Log($"update player pos: {targetPos}");
         transform.position = targetPos;
     }

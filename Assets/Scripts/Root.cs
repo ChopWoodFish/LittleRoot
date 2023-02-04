@@ -6,13 +6,17 @@ public class Root : MonoBehaviour
 {
     public int index;
     public Vector3 startPoint;
-    public Vector3 endPoint;
+    public Vector3 endPoint;    // 注意：玩家位置不根据该数据计算，预备弃用
     public float len;
     public float angle = 90f;
     public float leftAngleBound = 0f;
     public float rightAngleBound = 180f;
 
     public RootGrow rootController;
+    public Transform startTrans;
+    public Transform endTrans;
+
+    public SpriteRenderer rootSprite;
 
     /// <summary>
     /// 旋转根

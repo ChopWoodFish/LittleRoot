@@ -141,7 +141,10 @@ public class OnRootState : PlayerState
         if(!isCustomStartPos)
             rootController.StartRoot();
         else
+        {
+            rootController.Reset();
             rootController.ReRoot(customStartPos);
+        }
 
         playerController.rb.gravityScale = 0;
         rangeChecker.gameObject.SetActive(true);
@@ -180,6 +183,12 @@ public class OnRootState : PlayerState
             rootController.Reset();
             nextStateFlag = State.OnAir;
             return new OnAirState(playerController);
+        }
+        // 进一步生长
+        else if (Input.GetKeyDown(KeyCode.F))
+        {
+            Debug.Log("try more root");
+            rootController.TryGrowRoot();
         }
 
         return null;

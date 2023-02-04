@@ -123,30 +123,25 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &662218737 stripped
+--- !u!1 &222525497 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 798043398907165965, guid: fc064c0f9ff05465c88867645c7fa51e, type: 3}
-  m_PrefabInstance: {fileID: 1207276088}
+  m_PrefabInstance: {fileID: 1276401981}
   m_PrefabAsset: {fileID: 0}
---- !u!50 &662218741 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 798043398907165953, guid: fc064c0f9ff05465c88867645c7fa51e, type: 3}
-  m_PrefabInstance: {fileID: 1207276088}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &662218744
+--- !u!114 &222525498
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 662218737}
-  m_Enabled: 0
+  m_GameObject: {fileID: 222525497}
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fb5ea100be4c436da038ef342dcf868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rootPrefab: {fileID: 3482819985576141749, guid: 6f8370019a353441e8826c78b73d662e, type: 3}
-  rb: {fileID: 662218741}
+  rb: {fileID: 222525501}
   isRooting: 0
   rootLen: 0
   rootLenMax: 0
@@ -157,7 +152,12 @@ MonoBehaviour:
   startPoint: []
   endPoint: []
   roots: []
---- !u!1001 &1207276088
+--- !u!50 &222525501 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 798043398907165953, guid: fc064c0f9ff05465c88867645c7fa51e, type: 3}
+  m_PrefabInstance: {fileID: 1276401981}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1276401981
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -212,6 +212,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2071738441466055485, guid: fc064c0f9ff05465c88867645c7fa51e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc064c0f9ff05465c88867645c7fa51e, type: 3}
 --- !u!1 &1634045797
@@ -227,7 +231,7 @@ GameObject:
   - component: {fileID: 1634045798}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,9 +338,10 @@ GameObject:
   - component: {fileID: 1658817860}
   - component: {fileID: 1658817859}
   - component: {fileID: 1658817858}
+  - component: {fileID: 1658817861}
   m_Layer: 0
   m_Name: SquareUpper
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -432,6 +437,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!68 &1658817861
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658817857}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.4992538, y: 0.49755657}
+  - {x: 0.5018076, y: 0.49975663}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &1866664255
 GameObject:
   m_ObjectHideFlags: 0

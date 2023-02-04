@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public Collider2D colliderUnder;
 
     public List<Collider2D> allColliders = new List<Collider2D>();
+    public RootRangeChecker rangeChecker;
 
     private void Awake()
     {
@@ -29,6 +30,9 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        rangeChecker.gameObject.SetActive(false);
+        
+        
         stateFlag = State.OnGround;
         state = new OnGroundState(this);
     }
@@ -82,7 +86,7 @@ public class PlayerController : MonoBehaviour
             var hitPointY = hitPoint.point.y;
             var underBoundY = transform.position.y - boxCollider.bounds.size.y / 2;
             Debug.Log($"hitPointY: {hitPointY} underBoundY: {underBoundY}");
-            if (hitPoint.point.y <= underBoundY)
+            if (hitPointY <= underBoundY)
             {
                 Debug.Log("collide with box collider under bound!");
                 colliderUnder = otherCollider;

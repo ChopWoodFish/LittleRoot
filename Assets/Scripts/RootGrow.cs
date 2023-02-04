@@ -23,20 +23,100 @@ public class RootGrow : MonoBehaviour
     public List<Vector3> endPoint = new List<Vector3>(capacity: 3);
     public List<Root> roots = new List<Root>(capacity: 3);
 
-    private void Update()
+    public void Reset()
     {
-        TryGrowRoot();
+        rootNum = 0;
+        startPoint.Clear();
+        endPoint.Clear();
+        foreach (var rootItem in roots)
+        {
+            Destroy(rootItem.gameObject);
+        }
+        roots.Clear();
     }
 
-    private void TryGrowRoot()
+    public void ReRoot(Vector3 newStartPos)
+    {
+        var newRoot = Instantiate(rootPrefab).GetComponent<Root>();
+
+        newRoot.rootController = this;
+        newRoot.index = 0;
+        // todo 动态长度
+        newRoot.len = 2f;
+        rootNum++;
+
+        startPoint.Add(newStartPos);
+
+        // // 角色中心到脚底的偏移量
+        // float offsetY = -0.8f;
+        // startPoint[0] = rb.transform.position + new Vector3(0f, offsetY, 0f);
+
+        newRoot.InitRootWithStart(startPoint[0]);
+        roots.Add(newRoot);
+
+        // 重新设置角色位置
+        UpdatePlayerPos();
+
+        isRooting = true;
+
+        // 取消重力影响
+        rb.gravityScale = 0;
+    }
+    
+    public void StartRoot()
+    {
+        // todo 生成根并初始化
+        /*
+         * 生成根
+         * 根据角色位置确定和地面的接触位置
+         * 将角色位置置为根的尾部
+         */
+
+        var newRoot = Instantiate(rootPrefab).GetComponent<Root>();
+        if (newRoot == null)
+        {
+            Debug.LogError("null root component!");
+        }
+
+        newRoot.rootController = this;
+        newRoot.index = 0;
+        // todo 动态长度
+        newRoot.len = 2f;
+        rootNum++;
+
+        startPoint.Add(Vector3.zero);
+
+        // 角色中心到脚底的偏移量
+        float offsetY = -0.8f;
+        startPoint[0] = rb.transform.position + new Vector3(0f, offsetY, 0f);
+
+        newRoot.InitRootWithStart(startPoint[0]);
+        roots.Add(newRoot);
+
+        // 重新设置角色位置
+        UpdatePlayerPos();
+
+
+        isRooting = true;
+
+        // 取消重力影响
+        rb.gravityScale = 0;
+    }
+
+    public void Swing(float dir)
+    {
+        roots.Last().Swing(dir);
+        UpdatePlayerPos();
+    }
+
+    public void TryGrowRoot()
     {
         var verticalMove = Input.GetAxisRaw("Vertical");
         var HorizontalMove = Input.GetAxisRaw("Horizontal");
 
         if (HorizontalMove != 0)
         {
-            roots.Last().Swing(HorizontalMove);
-            UpdatePlayerPos();
+            Swing(HorizontalMove);
         }
         
 

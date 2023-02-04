@@ -13,10 +13,11 @@ public class RootRangeChecker : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(!other.CompareTag("Platform")) return;
+        if(!other.CompareTag("Platform") || !(other is EdgeCollider2D)) return;
 
-        Debug.Log("trigger enter");
+        // Debug.Log("trigger enter");
         otherCollider = other;
+        pointSprite.gameObject.SetActive(true);
         hitPos = other.bounds.ClosestPoint(transform.position);
         isInRange = true;
     }
@@ -25,6 +26,7 @@ public class RootRangeChecker : MonoBehaviour
     {
         Debug.Log("trigger Exit");
         otherCollider = null;
+        pointSprite.gameObject.SetActive(false);
         isInRange = false;
     }
 

@@ -13,7 +13,7 @@ public class PlayerState
     // 进入状态
     public virtual void Enter()
     {
-        Debug.Log("Enter no override");
+        // Debug.Log("Enter no override");
     }
 
     public virtual PlayerState Update()
@@ -25,7 +25,7 @@ public class PlayerState
     // 退出状态
     public virtual void Exit()
     {
-        Debug.Log("Exit no override");
+        // Debug.Log("Exit no override");
         playerController.stateFlag = nextStateFlag;
     }
 }
@@ -49,6 +49,14 @@ public class OnGroundState : PlayerState
             return new OnAirState(playerController);
         }
         
+        // 按键转向扎根状态
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Debug.Log("<state> OnGround - > OnRoot [press key]");
+            nextStateFlag = State.OnRoot;
+            return new OnRootState(playerController);
+        }
+        
         
         playerController.Move();
         return null;
@@ -57,13 +65,22 @@ public class OnGroundState : PlayerState
 
 // 在空中
 // 可以转向：扎根、在地面上、被攻击
+// 持续扎根检测
 public class OnAirState : PlayerState
 {
-
+    private RootRangeChecker rangeChecker;
+    
     public OnAirState(PlayerController controller) : base(controller)
     {
+        rangeChecker = playerController.rangeChecker;
     }
-    
+
+    public override void Enter()
+    {
+        playerController.rb.gravityScale = 2;
+        rangeChecker.gameObject.SetActive(true);
+    }
+
     public override PlayerState Update()
     {
         // 若发现有位于下方的碰撞体，进入在地面状态
@@ -74,6 +91,103 @@ public class OnAirState : PlayerState
             return new OnGroundState(playerController);
         }
         
+        // 若下落中途检测到可以扎根的地方，也扎根
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (!rangeChecker.isInRange) return null;
+            Debug.Log("<state> OnAir - > OnRoot [press key]");
+            nextStateFlag = State.OnRoot;
+            return new OnRootState(playerController, rangeChecker.hitPos);
+        }
+        
         return null;
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        rangeChecker.gameObject.SetActive(false);
+        playerController.rb.velocity = new Vector2(playerController.rb.velocity.x, 0f);
+    }
+}
+
+// 在扎根
+// 可以延长根、旋转根、撤销
+// 开启并持续扎根检测
+public class OnRootState : PlayerState
+{
+    private RootGrow rootController;
+    private RootRangeChecker rangeChecker;
+    private Vector3 customStartPos; // 指定新根起点，若没有，则选取角色脚下
+    private bool isCustomStartPos;
+
+    public OnRootState(PlayerController controller) : base(controller)
+    {
+        rootController = playerController.GetComponent<RootGrow>();
+        rangeChecker = playerController.rangeChecker;
+    }
+    
+    public OnRootState(PlayerController controller, Vector3 startPos) : base(controller)
+    {
+        rootController = playerController.GetComponent<RootGrow>();
+        rangeChecker = playerController.rangeChecker;
+        customStartPos = startPos;
+        isCustomStartPos = true;
+    }
+    
+
+    public override void Enter()
+    {
+        if(!isCustomStartPos)
+            rootController.StartRoot();
+        else
+            rootController.ReRoot(customStartPos);
+
+        playerController.rb.gravityScale = 0;
+        rangeChecker.gameObject.SetActive(true);
+    }
+
+    public override PlayerState Update()
+    {
+        var HorizontalMove = Input.GetAxisRaw("Horizontal");
+        
+        // 存在左右方向按键时，摇摆
+        if (HorizontalMove != 0)
+        {
+            rootController.Swing(HorizontalMove);
+        }
+        // 切换地方扎根
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            // todo...
+            /*
+             * 判断是否可以重新扎根
+             * 撤回旧根
+             * 根据新的扎根位置重新初始化根
+             * 旋转player
+             */
+
+            if (!rangeChecker.isInRange) return null;
+            
+            rootController.Reset();
+            rootController.ReRoot(rangeChecker.hitPos);
+            
+        }
+        // 撤销
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("<state> OnRoot - > OnAir [press key]");
+            rootController.Reset();
+            nextStateFlag = State.OnAir;
+            return new OnAirState(playerController);
+        }
+
+        return null;
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        rangeChecker.gameObject.SetActive(false);
     }
 }

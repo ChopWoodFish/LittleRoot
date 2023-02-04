@@ -49,8 +49,8 @@ MonoBehaviour:
   endPoint: {x: 0, y: 0, z: 0}
   len: 0
   angle: 90
-  leftAngleBound: 0
-  rightAngleBound: 180
+  leftAngleBound: 60
+  rightAngleBound: 120
   rootController: {fileID: 0}
 --- !u!1 &5759388825604118547
 GameObject:

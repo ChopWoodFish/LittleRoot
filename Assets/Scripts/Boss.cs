@@ -19,7 +19,7 @@ public class Boss : MonoBehaviour
             var rotation = enemy.transform.rotation;
 
             // calculate the position
-            //position.y -= 1;
+            position.y -= 1;
 
             var spikeIndicator = Object.Instantiate(Resources.Load(ConstValue.EarthSpikeIndicator), position, rotation);
             if (spikeIndicator == null)

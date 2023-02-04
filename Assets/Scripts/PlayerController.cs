@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float speed = 1f;
+    public float jumpForce = 50f;
 
     private float scaleX;
     private float scaleY;
@@ -26,18 +27,20 @@ public class PlayerController : MonoBehaviour
     {
         // -1, 0, 1
         float horizontalMove = Input.GetAxisRaw("Horizontal");
-        // Debug.Log($"horizontalMove: {horizontalMove}");
 
-        // 不要惯性
-        // if (horizontalMove != 0)
-        // {
-            rb.velocity = new Vector2(horizontalMove * speed, rb.velocity.y);
-            // 转身
-            if (horizontalMove != 0)
-            {
-                transform.localScale = new Vector3(horizontalMove * scaleX, scaleY, 1);   
-            }
-            // }
+        rb.velocity = new Vector2(horizontalMove * speed, rb.velocity.y);
+        // 转身
+        if (horizontalMove != 0)
+        {
+            transform.localScale = new Vector3(horizontalMove * scaleX, scaleY, 1);
+        }
+        
+        // 其他按键
+        if (Input.GetButtonDown("Jump"))
+        {
+            Debug.Log("btn jump");
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
 
     }
 }

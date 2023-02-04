@@ -5,7 +5,7 @@ using UnityEngine;
 public class PersuerBullet : MonoBehaviour
 {
     GameObject persuer;
-    float timer = 2f;
+    float timeBulletLife = 2f;//子弹存在时间
     public int Speed, facing;
     // Start is called before the first frame update
     void Start()
@@ -20,8 +20,8 @@ public class PersuerBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer -= Time.deltaTime;
-        if(timer<0)
+        timeBulletLife -= Time.deltaTime;
+        if(timeBulletLife<0)
         {
             Destroy(gameObject);
         }

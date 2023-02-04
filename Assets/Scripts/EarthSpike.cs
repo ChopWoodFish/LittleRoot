@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +7,7 @@ using UnityEngine;
 
 public class EarthSpike : MonoBehaviour
 {
-    int damage = 5;
-    public Rigidbody body;
+    public float damage = 5;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -21,9 +21,10 @@ public class EarthSpike : MonoBehaviour
 
     private void Awake()
     {
-        if(GetComponent<Rigidbody>() == null && GetComponent<Collider>() == null)
+        if (GetComponent<Rigidbody>() == null && GetComponent<Collider>() == null)
         {
             Debug.LogError("EarthSpike has no Collider!");
+            throw new Exception("Missing Components");
         }
     }
 

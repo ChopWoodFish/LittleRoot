@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-    int health = 100;
-    int spikeIndicatorDuration = 2;
-    int spikeDuration = 2;
-    int spikeCooldown = 7;
+    public int health = 100;
+    public int spikeIndicatorDuration = 2;
+    public int spikeDuration = 2;
+    public int spikeCooldown = 7;
 
     IEnumerator CastEarthSpikeSpell(GameObject enemy)
     {

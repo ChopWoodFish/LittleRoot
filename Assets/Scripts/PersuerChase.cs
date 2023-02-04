@@ -8,10 +8,13 @@ public class PersuerChase : MonoBehaviour
     private Vector2 movDir = new Vector2(); //物理引擎方式采用的参数
     public Transform target; //要追捕的对象
     private Rigidbody2D rb2D;
+
+
     // Start is called before the first frame update
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame
@@ -32,10 +35,10 @@ public class PersuerChase : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position,target.position,Time.deltaTime);
 
         if (transform.position.x > target.position.x){
-            transform.GetComponent<SpriteRenderer>().flipX == true;
+            transform.GetComponent<SpriteRenderer>().flipX = true;
         }
         else{
-            transform.GetComponent<SpriteRenderer>().flipX == false;
+            transform.GetComponent<SpriteRenderer>().flipX = false;
         }
     }
 }

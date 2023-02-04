@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 1f;
     public float jumpForce = 50f;
 
+    // 用于转向的参数
     private float scaleX;
     private float scaleY;
 

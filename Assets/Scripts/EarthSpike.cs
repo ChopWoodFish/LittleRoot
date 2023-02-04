@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class EarthSpike : MonoBehaviour
 {
+    public Collider2D collider;
     public float damage = 5;
 
     private void OnCollisionEnter(Collision collision)
@@ -21,16 +22,16 @@ public class EarthSpike : MonoBehaviour
 
     private void Awake()
     {
-        if (GetComponent<Rigidbody>() == null && GetComponent<Collider>() == null)
-        {
-            Debug.LogError("EarthSpike has no Collider!");
-            throw new Exception("Missing Components");
-        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        if (collider == null && GetComponent<CapsuleCollider2D>())
+        {
+            Debug.LogError("EarthSpike has no Collider!");
+            throw new Exception("Missing Components");
+        }
     }
 
     // Update is called once per frame

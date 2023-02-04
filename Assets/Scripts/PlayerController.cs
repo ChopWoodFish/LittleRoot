@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;
+    public Animator anim;
     public float speed = 1f;
     public float jumpForce = 50f;
 
@@ -27,8 +28,11 @@ public class PlayerController : MonoBehaviour
     {
         // -1, 0, 1
         float horizontalMove = Input.GetAxisRaw("Horizontal");
+        
+        // 动画控制
+        anim.SetTrigger(horizontalMove == 0 ? "Idle" : "Walk");
 
-        rb.velocity = new Vector2(horizontalMove * speed, rb.velocity.y);
+            rb.velocity = new Vector2(horizontalMove * speed, rb.velocity.y);
         // 转身
         if (horizontalMove != 0)
         {

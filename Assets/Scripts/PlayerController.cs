@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     {
         // -1, 0, 1
         float horizontalMove = Input.GetAxisRaw("Horizontal");
-        Debug.Log($"horizontalMove: {horizontalMove}");
+        // Debug.Log($"horizontalMove: {horizontalMove}");
 
         // 不要惯性
         // if (horizontalMove != 0)

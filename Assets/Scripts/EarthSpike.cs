@@ -11,7 +11,7 @@ public class EarthSpike : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == ConstValue.player)
+        if (collision.gameObject.name == ConstValue.Player)
         {
             Debug.Log("player hitted");
             // hurt the player

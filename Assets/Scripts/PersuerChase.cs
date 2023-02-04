@@ -30,5 +30,12 @@ public class PersuerChase : MonoBehaviour
 
         //角色向某个位置移动（不是受控制的移动）可以实现跟随或小怪追主角
         transform.position = Vector2.MoveTowards(transform.position,target.position,Time.deltaTime);
+
+        if (transform.position.x > target.position.x){
+            transform.GetComponent<SpriteRenderer>().flipX == true;
+        }
+        else{
+            transform.GetComponent<SpriteRenderer>().flipX == false;
+        }
     }
 }

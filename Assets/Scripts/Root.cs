@@ -27,7 +27,6 @@ public class Root : MonoBehaviour
         {
             angle = newAngle;
             UpdateRoot();
-            // 旋转图片
         }
         else
         {
@@ -40,6 +39,7 @@ public class Root : MonoBehaviour
     public void InitRootWithStart(Vector3 pos)
     {
         startPoint = pos;
+        transform.position = startPoint;
         UpdateRoot();
     }
 
@@ -49,6 +49,10 @@ public class Root : MonoBehaviour
 
         endPoint.x = (float) (startPoint.x + len * Math.Cos(radian));
         endPoint.y = (float) (startPoint.y + len * Math.Sin(radian));
+        
+        // 旋转图片
+        float rotateZ = transform.rotation.z;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
         
         PrintInfo();
     }

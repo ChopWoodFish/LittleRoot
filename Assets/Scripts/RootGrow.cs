@@ -127,7 +127,11 @@ public class RootGrow : MonoBehaviour
         if (rootNum == 1)
         {
             startPoint.Add(Vector3.zero);
-            startPoint[0] = rb.transform.position;
+
+            // 角色中心到脚底的偏移量
+            float offsetY = -0.8f;
+            startPoint[0] = rb.transform.position + new Vector3(0f, offsetY, 0f);
+
             newRoot.InitRootWithStart(startPoint[0]);
             roots.Add(newRoot);
         }

@@ -31,7 +31,7 @@ public class PersuerBullet : MonoBehaviour
     void OnTriggerEnter2D(Collider2D coll)
     {
 
-        Debug.Log(coll.gameObject.tag);
+        // Debug.Log(coll.gameObject.tag);
         if (coll.gameObject.tag.Equals("Player"))
         {
             //Destroy(coll.gameObject);//给角色造成伤害

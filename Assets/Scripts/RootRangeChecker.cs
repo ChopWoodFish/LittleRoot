@@ -13,6 +13,8 @@ public class RootRangeChecker : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if(!other.CompareTag("Platform")) return;
+
         Debug.Log("trigger enter");
         otherCollider = other;
         hitPos = other.bounds.ClosestPoint(transform.position);

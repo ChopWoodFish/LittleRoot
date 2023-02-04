@@ -286,10 +286,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3836eacf9b0c0410e91911925501d39f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxCollider: {fileID: 798043398907165952}
   rb: {fileID: 798043398907165953}
   anim: {fileID: 798043398907165959}
   speed: 5
   jumpForce: 8
+  stateFlag: 0
+  allColliders: []
 --- !u!95 &798043398907165959
 Animator:
   serializedVersion: 3

@@ -769,6 +769,7 @@ GameObject:
   m_Component:
   - component: {fileID: 491519789}
   - component: {fileID: 491519790}
+  - component: {fileID: 491519791}
   m_Layer: 0
   m_Name: PlatformCollider1 (6)
   m_TagString: Platform
@@ -816,6 +817,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.7912397, y: 0.912977}
   m_EdgeRadius: 0
+--- !u!68 &491519791
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 491519788}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -1.0360394, y: 0.5105591}
+  - {x: 6.7568884, y: 0.50862396}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &541578634
 GameObject:
   m_ObjectHideFlags: 0
@@ -3303,6 +3326,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2097199513}
   - component: {fileID: 2097199514}
+  - component: {fileID: 2097199515}
   m_Layer: 0
   m_Name: PlatformCollider1 (5)
   m_TagString: Platform
@@ -3350,6 +3374,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.087002, y: 0.912977}
   m_EdgeRadius: 0
+--- !u!68 &2097199515
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097199512}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 1.178196, y: 0.50942767}
+  - {x: 5.2519393, y: 0.5092524}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1001 &3404633795209824348
 PrefabInstance:
   m_ObjectHideFlags: 0

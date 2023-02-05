@@ -195,7 +195,7 @@ public class OnRootState : PlayerState
         else if (Input.GetKeyDown(KeyCode.R))
         {
             Debug.Log("<state> OnRoot - > OnAir [press key]");
-            rootController.Reset();
+            // rootController.Reset();
             nextStateFlag = State.OnAir;
             return new OnAirState(playerController);
         }
@@ -221,6 +221,36 @@ public class OnRootState : PlayerState
     public override void Exit()
     {
         base.Exit();
+        rootController.Reset();
         rangeChecker.gameObject.SetActive(false);
+    }
+}
+
+public class OnHitState : PlayerState
+{
+    private float restoreDur = 0.2f;
+        
+    public OnHitState(PlayerController controller) : base(controller)
+    {
+    }
+
+    public override PlayerState Update()
+    {
+        restoreDur -= Time.deltaTime;
+        if (restoreDur <= 0)
+        {
+            if (playerController.colliderUnder == null)
+            {
+                Debug.Log("<state> OnHit - > OnAir [hit end]");
+                return new OnAirState(playerController);
+            }
+            else
+            {
+                Debug.Log("<state> OnHit - > OnGround [hit end]");
+                return new OnGroundState(playerController);   
+            }
+        }
+            
+        return null;
     }
 }

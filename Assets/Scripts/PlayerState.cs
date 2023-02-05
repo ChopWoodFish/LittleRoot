@@ -149,6 +149,7 @@ public class OnRootState : PlayerState
     public override void Enter()
     {
         playerController.anim.SetTrigger("Idle");
+        playerController.rb.velocity = Vector2.zero;
         if(!isCustomStartPos)
             rootController.StartRoot();
         else

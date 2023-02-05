@@ -21,11 +21,13 @@ public class PlayerController : MonoBehaviour
 
     public List<Collider2D> allColliders = new List<Collider2D>();
     public RootRangeChecker rangeChecker;
+    public Fighter fighter;
 
     private void Awake()
     {
         scaleX = transform.localScale.x;
         scaleY = transform.localScale.y;
+        fighter.getHitAction = GetHit;
     }
 
     private void Start()
@@ -102,6 +104,14 @@ public class PlayerController : MonoBehaviour
 
         if (otherCollider == colliderUnder)
             colliderUnder = null;
+    }
+
+    public void GetHit()
+    {
+        Debug.Log("player get hit action");
+        
+        anim.SetTrigger("Hit");
+        
     }
 }
 

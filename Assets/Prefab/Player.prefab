@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 798043398907165958}
   - component: {fileID: 798043398907165959}
   - component: {fileID: 690443010783554394}
+  - component: {fileID: 3767919366622783419}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -296,6 +297,7 @@ MonoBehaviour:
   colliderUnder: {fileID: 0}
   allColliders: []
   rangeChecker: {fileID: 7499039387962150315}
+  fighter: {fileID: 3767919366622783419}
 --- !u!95 &798043398907165959
 Animator:
   serializedVersion: 3
@@ -343,6 +345,21 @@ MonoBehaviour:
   endPoint: []
   roots: []
   isAnim: 0
+--- !u!114 &3767919366622783419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798043398907165965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7785187b304d4f6a94d51ffcb11b8cc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 10
+  ui: {fileID: 0}
+  anim: {fileID: 798043398907165959}
 --- !u!1 &7071285107154746828
 GameObject:
   m_ObjectHideFlags: 0

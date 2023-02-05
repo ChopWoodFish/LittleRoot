@@ -35,6 +35,9 @@ public class PersuerBullet : MonoBehaviour
         if (coll.gameObject.tag.Equals("Player"))
         {
             //Destroy(coll.gameObject);//给角色造成伤害
+            
+            coll.GetComponent<Fighter>().GetHit();
+            
             Destroy(gameObject);//销毁子弹自己
         }
     }

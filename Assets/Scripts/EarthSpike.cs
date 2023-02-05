@@ -7,16 +7,16 @@ using UnityEngine;
 
 public class EarthSpike : MonoBehaviour
 {
-    public Collider2D collider;
-    public float damage = 5;
+    private Collider2D _collider;
+    public int damage = 5;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == ConstValue.Player)
+        var player = collision.collider.gameObject;
+        if (player.name == ConstValue.Player)
         {
             Debug.Log("player hitted");
-            // hurt the player
-            // player.health-=damage;
+            player.GetComponent<Fighter>().GetHit(damage);
         }
     }
 
@@ -27,7 +27,8 @@ public class EarthSpike : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (collider == null && GetComponent<CapsuleCollider2D>())
+        _collider = GetComponent<CapsuleCollider2D>();
+        if (_collider == null)
         {
             Debug.LogError("EarthSpike has no Collider!");
             throw new Exception("Missing Components");

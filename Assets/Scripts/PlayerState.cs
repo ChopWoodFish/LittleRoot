@@ -61,6 +61,14 @@ public class OnGroundState : PlayerState
         playerController.Move();
         return null;
     }
+
+    public override void Exit()
+    {
+        base.Exit();
+        
+        playerController.rb.velocity = Vector2.zero;
+        playerController.anim.SetTrigger("Idle");
+    }
 }
 
 // 在空中
@@ -99,6 +107,8 @@ public class OnAirState : PlayerState
             nextStateFlag = State.OnRoot;
             return new OnRootState(playerController, rangeChecker.hitPos);
         }
+        
+        playerController.Move();
         
         return null;
     }
@@ -146,6 +156,7 @@ public class OnRootState : PlayerState
             rootController.ReRoot(customStartPos);
         }
 
+        playerController.anim.SetTrigger("Idle");
         playerController.rb.gravityScale = 0;
         rangeChecker.gameObject.SetActive(true);
     }

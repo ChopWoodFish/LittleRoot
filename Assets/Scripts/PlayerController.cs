@@ -65,11 +65,11 @@ public class PlayerController : MonoBehaviour
         }
         
         // 其他按键
-        if (Input.GetButtonDown("Jump"))
-        {
-            Debug.Log("btn jump");
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        }
+        // if (Input.GetButtonDown("Jump"))
+        // {
+        //     Debug.Log("btn jump");
+        //     rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        // }
     
     }
 
@@ -79,8 +79,8 @@ public class PlayerController : MonoBehaviour
         allColliders.Add(otherCollider);
         Debug.Log($"add collider object {otherCollider.gameObject.name}");
 
-        // 若是plateform，判断是否在脚底
-        if (otherCollider.CompareTag("Platform"))
+        // 若是plateform，判断是否在脚底且为boxCollider
+        if (otherCollider.CompareTag("Platform") && otherCollider is BoxCollider2D)
         {
             var hitPoint = other.GetContact(0);
             var hitPointY = hitPoint.point.y;

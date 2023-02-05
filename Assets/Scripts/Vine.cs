@@ -51,7 +51,7 @@ public class Vine : MonoBehaviour
         lineRenderer.SetPosition(0, gameObject.transform.position);
         var player = GameObject.Find("Player");
         var pos = player.transform.position;
-        pos.x -= 10;
+        pos.x=transform.position.x- 45 ;
         pos.y = gameObject.transform.position.y;
         for (int i = 1; i < lineRenderer.positionCount; i++)
         {

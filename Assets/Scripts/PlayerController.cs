@@ -110,8 +110,14 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("player get hit action");
         
-        anim.SetTrigger("Hit");
+        // 无敌时间
+        if(stateFlag == State.OnHit) return;
         
+        anim.SetTrigger("Hit");
+        state.Exit();
+        state = new OnHitState(this);
+        stateFlag = State.OnHit;
+        state.Enter();
     }
 }
 

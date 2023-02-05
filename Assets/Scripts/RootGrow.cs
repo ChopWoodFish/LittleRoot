@@ -132,12 +132,21 @@ public class RootGrow : MonoBehaviour
          * 第二根root位置先重置到第一根的start，再移动到end
          * player的位置跟随最后一根root的end
          */
+        isAnim = true;
+        
         Root firstRoot = roots[0];
         Root secondRoot = roots[1];
         Root lastRoot = roots.Last();
         
         firstRoot.GrowAnim(secondRoot.transform);
         transform.DOMove(lastRoot.endPoint, 0.2f);
+        
+        // 借助dotween延时一下
+        float animDur = 0f;
+        DOTween.To(() => animDur, value => animDur = value, 0.2f, 0.2f).OnComplete(() =>
+        {
+            isAnim = false;
+        });
     }
 
     public void TryGrowRoot()

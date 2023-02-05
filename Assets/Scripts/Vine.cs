@@ -36,11 +36,12 @@ public class Vine : MonoBehaviour
         var t = Time.time;
         lineRenderer.SetPosition(0, gameObject.transform.position);
         var pos = GameObject.Find("Player").transform.position;
+        pos.y = gameObject.transform.position.y;
 
         for (int i = 1; i < lineRenderer.positionCount; i++)
         {
             lineRenderer.SetPosition(i,
-                GameObject.Find("Player").transform.position);
+                pos);
             //new Vector3(i * 0.5f, Mathf.Sin(i + t), 0.0f));
         }
     }

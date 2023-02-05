@@ -4,33 +4,49 @@ using UnityEngine;
 
 public class Vine : MonoBehaviour
 {
-    GameObject persuer;
-    float timeBulletLife = 1.0f;//子弹存在时间
-    public int Speed, facing;
+    // Creates a line renderer that follows a Sin() function
+    // and animates it.
+
+    public Color c1 = Color.yellow;
+    public Color c2 = Color.red;
+    public int lengthOfLineRenderer = 20;
+
     // Start is called before the first frame update
     void Start()
     {
-        persuer = GameObject.Find("Persuer");
-        if (persuer.GetComponent<SpriteRenderer>().flipX == false)
-            facing = 1;
-        else
-            facing = -1;
+        LineRenderer lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        lineRenderer.widthMultiplier = 0.2f;
+        lineRenderer.positionCount = lengthOfLineRenderer;
+
+        // A simple 2 color gradient with a fixed alpha of 1.0f.
+        float alpha = 1.0f;
+        Gradient gradient = new Gradient();
+        gradient.SetKeys(
+            new GradientColorKey[] { new GradientColorKey(c1, 0.0f), new GradientColorKey(c2, 1.0f) },
+            new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
+        );
+        lineRenderer.colorGradient = gradient;
     }
 
     // Update is called once per frame
     void Update()
     {
-        timeBulletLife -= Time.deltaTime;
-        if (timeBulletLife < 0)
+        LineRenderer lineRenderer = GetComponent<LineRenderer>();
+        var t = Time.time;
+        lineRenderer.SetPosition(0, gameObject.transform.position);
+        var pos = GameObject.Find("Player").transform.position;
+
+        for (int i = 1; i < lineRenderer.positionCount; i++)
         {
-            Destroy(gameObject);
+            lineRenderer.SetPosition(i,
+                GameObject.Find("Player").transform.position);
+            //new Vector3(i * 0.5f, Mathf.Sin(i + t), 0.0f));
         }
-        transform.position += new Vector3(facing * 0.05f * Speed, 0, 0);
     }
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-
         // Debug.Log(coll.gameObject.tag);
         if (coll.gameObject.tag.Equals("Player"))
         {

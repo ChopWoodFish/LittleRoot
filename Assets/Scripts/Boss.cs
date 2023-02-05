@@ -13,14 +13,9 @@ public class Boss : MonoBehaviour
     public int spikeDuration = 2;
     public int spikeCooldown = 7;
 
-    public float firstFlowerHeight;
-    public float secondFlowerHeight;
-    public float thirdFlowerHeight;
     public int shootInterval;
 
-    private Transform _transform;
-
-    private float[] flowerHeights = new float[3];
+    public GameObject[] flowers = new GameObject[3];
 
     IEnumerator CastEarthSpikeSpell(GameObject enemy)
     {
@@ -79,11 +74,13 @@ public class Boss : MonoBehaviour
             var enemyRotation = enemy.transform.rotation;
 
             // calculate the index
-            var index = MinIndex(Math.Abs(enemyPosition.y - firstFlowerHeight), Math.Abs(enemyPosition.y - secondFlowerHeight), Math.Abs(enemyPosition.y - thirdFlowerHeight));
+            var index = MinIndex(Math.Abs(enemyPosition.y - flowers[0].transform.position.y),
+                Math.Abs(enemyPosition.y - flowers[1].transform.position.y),
+                Math.Abs(enemyPosition.y - flowers[2].transform.position.y));
 
             var spikeIndicator = Instantiate(Resources.Load(ConstValue.Vine),
-                new Vector2() { x = _transform.position.x, y = flowerHeights[index] },
-                _transform.rotation);
+                flowers[index].transform.position,
+                flowers[index].transform.rotation);
 
             if (spikeIndicator == null)
             {
@@ -93,8 +90,8 @@ public class Boss : MonoBehaviour
 
             // TODO: use preSpike.transform.position
             var spike = Instantiate(Resources.Load(ConstValue.Vine),
-                new Vector2() { x = _transform.position.x, y = flowerHeights[index] },
-                _transform.rotation);
+                flowers[index].transform.position,
+                flowers[index].transform.rotation);
             yield return new WaitForSeconds(spikeDuration);
 
             GameObject.Destroy(spikeIndicator);
@@ -107,11 +104,6 @@ public class Boss : MonoBehaviour
 
     void Start()
     {
-        flowerHeights[0] = firstFlowerHeight;
-        flowerHeights[1] = secondFlowerHeight;
-        flowerHeights[2] = thirdFlowerHeight;
-
-        this._transform = GetComponent<Transform>();
         GameObject enemy = GameObject.Find(ConstValue.Player);
         if (enemy == null)
         {

@@ -21,26 +21,33 @@ public class Boss : MonoBehaviour
     {
         while (health > 0)
         {
-            var enemyPosition = enemy.transform.position;
-            var enemyRotation = enemy.transform.rotation;
-
-            // calculate the position
-            enemyPosition.y -= 1;
-
-            var spikeIndicator = Instantiate(Resources.Load(ConstValue.EarthSpikeIndicator), enemyPosition, enemyRotation);
-            if (spikeIndicator == null)
+            if (Vector3.Distance(enemy.transform.position, transform.position) > 50f)
             {
-                Debug.Log("instantiate Pre-spike failed");
+                yield return null;
             }
-            yield return new WaitForSeconds(spikeIndicatorDuration);
+            else
+            {
+                var enemyPosition = enemy.transform.position;
+                var enemyRotation = enemy.transform.rotation;
 
-            // TODO: use preSpike.transform.position
-            var spike = Instantiate(Resources.Load(ConstValue.EarthSpike), enemyPosition, enemyRotation);
-            yield return new WaitForSeconds(spikeDuration);
+                // calculate the position
+                enemyPosition.y -= 1;
 
-            GameObject.Destroy(spikeIndicator);
-            GameObject.Destroy(spike);
-            yield return new WaitForSeconds(spikeCooldown - spikeIndicatorDuration - spikeDuration);
+                var spikeIndicator = Instantiate(Resources.Load(ConstValue.EarthSpikeIndicator), enemyPosition, enemyRotation);
+                if (spikeIndicator == null)
+                {
+                    Debug.Log("instantiate Pre-spike failed");
+                }
+                yield return new WaitForSeconds(spikeIndicatorDuration);
+
+                // TODO: use preSpike.transform.position
+                var spike = Instantiate(Resources.Load(ConstValue.EarthSpike), enemyPosition, enemyRotation);
+                yield return new WaitForSeconds(spikeDuration);
+
+                GameObject.Destroy(spikeIndicator);
+                GameObject.Destroy(spike);
+                yield return new WaitForSeconds(spikeCooldown - spikeIndicatorDuration - spikeDuration);
+            }
         }
     }
 
@@ -70,33 +77,40 @@ public class Boss : MonoBehaviour
     {
         while (health > 0)
         {
-            var enemyPosition = enemy.transform.position;
-            var enemyRotation = enemy.transform.rotation;
-
-            // calculate the index
-            var index = MinIndex(Math.Abs(enemyPosition.y - flowers[0].transform.position.y),
-                Math.Abs(enemyPosition.y - flowers[1].transform.position.y),
-                Math.Abs(enemyPosition.y - flowers[2].transform.position.y));
-
-            var spikeIndicator = Instantiate(Resources.Load(ConstValue.Vine),
-                flowers[index].transform.position,
-                flowers[index].transform.rotation);
-
-            if (spikeIndicator == null)
+            if (Vector3.Distance(enemy.transform.position, transform.position) > 50f)
             {
-                Debug.Log("instantiate Pre-spike failed");
+                yield return null;
             }
-            yield return new WaitForSeconds(spikeIndicatorDuration);
+            else
+            {
+                var enemyPosition = enemy.transform.position;
+                var enemyRotation = enemy.transform.rotation;
 
-            // TODO: use preSpike.transform.position
-            var spike = Instantiate(Resources.Load(ConstValue.Vine),
-                flowers[index].transform.position,
-                flowers[index].transform.rotation);
-            yield return new WaitForSeconds(spikeDuration);
+                // calculate the index
+                var index = MinIndex(Math.Abs(enemyPosition.y - flowers[0].transform.position.y),
+                    Math.Abs(enemyPosition.y - flowers[1].transform.position.y),
+                    Math.Abs(enemyPosition.y - flowers[2].transform.position.y));
 
-            GameObject.Destroy(spikeIndicator);
-            GameObject.Destroy(spike);
-            yield return new WaitForSeconds(spikeCooldown - spikeIndicatorDuration - spikeDuration);
+                var spikeIndicator = Instantiate(Resources.Load(ConstValue.Vine),
+                    flowers[index].transform.position,
+                    flowers[index].transform.rotation);
+
+                if (spikeIndicator == null)
+                {
+                    Debug.Log("instantiate Pre-spike failed");
+                }
+                yield return new WaitForSeconds(spikeIndicatorDuration);
+
+                // TODO: use preSpike.transform.position
+                var spike = Instantiate(Resources.Load(ConstValue.Vine),
+                    flowers[index].transform.position,
+                    flowers[index].transform.rotation);
+                yield return new WaitForSeconds(spikeDuration);
+
+                GameObject.Destroy(spikeIndicator);
+                GameObject.Destroy(spike);
+                yield return new WaitForSeconds(spikeCooldown - spikeIndicatorDuration - spikeDuration);
+            }
         }
     }
     void Awake()

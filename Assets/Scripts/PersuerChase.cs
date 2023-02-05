@@ -20,7 +20,7 @@ public class PersuerChase : MonoBehaviour
     {
         rb2D = GetComponent<Rigidbody2D>();
         // todo 不知道为啥没生效
-        fighter.deadAction = Dead;
+        // fighter.deadAction = Dead;
     }
 
     public void Dead()

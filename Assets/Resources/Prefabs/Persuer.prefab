@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 3404633794080809325}
   - component: {fileID: 3404633794080809326}
   - component: {fileID: 3404633794080809327}
+  - component: {fileID: 8984620876504053510}
   m_Layer: 0
   m_Name: Persuer
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,6 +104,7 @@ MonoBehaviour:
   moveSpeed: 3
   target: {fileID: 0}
   jumpForce: 7
+  fighter: {fileID: 8984620876504053510}
 --- !u!50 &3404633794080809325
 Rigidbody2D:
   serializedVersion: 4
@@ -157,7 +159,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3404633794080809329}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fa9e73c6c187430881c64f884fbd939, type: 3}
   m_Name: 
@@ -166,6 +168,21 @@ MonoBehaviour:
   FPoint: {fileID: 3404633794527016956}
   bulletRate: 1
   lastFireTime: 0
+--- !u!114 &8984620876504053510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3404633794080809329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7785187b304d4f6a94d51ffcb11b8cc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 3
+  ui: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!1 &3404633794527016899
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,6 +268,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MultiDirectionShooter
       objectReference: {fileID: 0}
+    - target: {fileID: 8774088696775933740, guid: 614d8df3567384efea2b95f8c474ed30, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 8774088696775933741, guid: 614d8df3567384efea2b95f8c474ed30, type: 3}
       propertyPath: FPoint
       value: 
@@ -262,6 +283,14 @@ PrefabInstance:
     - target: {fileID: 8774088696775933741, guid: 614d8df3567384efea2b95f8c474ed30, type: 3}
       propertyPath: decideShootDirByFacing
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8774088696775933741, guid: 614d8df3567384efea2b95f8c474ed30, type: 3}
+      propertyPath: canDamageTag.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8774088696775933741, guid: 614d8df3567384efea2b95f8c474ed30, type: 3}
+      propertyPath: canDamageTag.Array.data[0]
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 614d8df3567384efea2b95f8c474ed30, type: 3}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class Shooter : MonoBehaviour
     public float lastFireTime;//上一次发射子弹的时间
     
     public List<float> listShootAngle = new List<float>(); // 发射方向
+    public List<String> canDamageTag = new List<String>();  // 子弹可以伤害的tag
 
     public bool isAutoShoot;
     public bool decideShootDirByFacing;
@@ -20,7 +22,6 @@ public class Shooter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -48,6 +49,7 @@ public class Shooter : MonoBehaviour
         if (decideShootDirByFacing)
         {
             var newBullet = Instantiate(Bullet, FPoint.position, FPoint.rotation).GetComponent<Bullet>();
+            newBullet.canDamageTag = canDamageTag;
             if(facingDecider.flipX == false)
                 newBullet.angle = 0;
             else
@@ -60,6 +62,7 @@ public class Shooter : MonoBehaviour
         {
             var newBullet = Instantiate(Bullet, FPoint.position, FPoint.rotation).GetComponent<Bullet>();
             newBullet.angle = angle;
+            newBullet.canDamageTag = canDamageTag;
         }
     }
 }

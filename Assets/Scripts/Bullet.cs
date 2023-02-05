@@ -10,6 +10,8 @@ public class Bullet : MonoBehaviour
     public int Speed;
     public float angle;
 
+    public List<String> canDamageTag = new List<string>();
+
     public GameObject shooter;
     
     void Start()
@@ -67,7 +69,8 @@ public class Bullet : MonoBehaviour
     {
 
         // Debug.Log(coll.gameObject.tag);
-        if (coll.gameObject.tag.Equals("Player"))
+        // if (coll.gameObject.tag.Equals("Player"))
+        if(CanDamageOther(coll))
         {
             //Destroy(coll.gameObject);//给角色造成伤害
             
@@ -75,5 +78,16 @@ public class Bullet : MonoBehaviour
             
             Destroy(gameObject);//销毁子弹自己
         }
+    }
+
+    bool CanDamageOther(Collider2D other)
+    {
+        foreach (var tag in canDamageTag)
+        {
+            if (other.gameObject.tag.Equals(tag))
+                return true;
+        }
+
+        return false;
     }
 }

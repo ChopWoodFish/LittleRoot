@@ -6,6 +6,7 @@ public class Shooter : MonoBehaviour
 {
     public GameObject Bullet;
     public Transform FPoint;
+    public SpriteRenderer facingDecider;
 
     public float bulletRate;//发射子弹的速度
     public float lastFireTime;//上一次发射子弹的时间
@@ -13,6 +14,7 @@ public class Shooter : MonoBehaviour
     public List<float> listShootAngle = new List<float>(); // 发射方向
 
     public bool isAutoShoot;
+    public bool decideShootDirByFacing;
     public KeyCode shootKey;
 
     // Start is called before the first frame update
@@ -42,10 +44,22 @@ public class Shooter : MonoBehaviour
 
     private void GenBullets()
     {
+        // 根据朝向动态生成一颗水平子弹，angle不起效
+        if (decideShootDirByFacing)
+        {
+            var newBullet = Instantiate(Bullet, FPoint.position, FPoint.rotation).GetComponent<Bullet>();
+            if(facingDecider.flipX == false)
+                newBullet.angle = 0;
+            else
+                newBullet.angle = 180;
+            return;
+        }
+        
+        // 根据angle list生成子弹
         foreach (var angle in listShootAngle)
         {
             var newBullet = Instantiate(Bullet, FPoint.position, FPoint.rotation).GetComponent<Bullet>();
             newBullet.angle = angle;
-        }  
+        }
     }
 }

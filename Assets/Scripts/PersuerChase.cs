@@ -54,13 +54,13 @@ public class PersuerChase : MonoBehaviour
  
 		if(info.collider!=null){
 			if(info.transform.gameObject.CompareTag("Platform")){
-				Debug.LogWarning("前方有障碍");
+				//Debug.LogWarning("前方有障碍");
                 rb2D.velocity = new Vector2(rb2D.velocity.x, jumpForce); //向上跳
 			}else{
-				Debug.Log("检测到其他对象");
+				//Debug.Log("检测到其他对象");
 			}
 		}else{
-			Debug.Log("没有碰撞任何对象");
+			//Debug.Log("没有碰撞任何对象");
 		}
 
     }

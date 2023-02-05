@@ -5,7 +5,7 @@ using UnityEngine;
 public class PersuerBullet : MonoBehaviour
 {
     GameObject persuer;
-    float timeBulletLife = 2f;//子弹存在时间
+    float timeBulletLife = 1.0f;//子弹存在时间
     public int Speed, facing;
     // Start is called before the first frame update
     void Start()

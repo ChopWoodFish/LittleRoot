@@ -10,6 +10,7 @@ public class PersuerChase : MonoBehaviour
     private Rigidbody2D rb2D;
 
     public float jumpForce;//jump force
+    public Fighter fighter;
 
     Ray2D ray;
 
@@ -18,7 +19,14 @@ public class PersuerChase : MonoBehaviour
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
+        // todo 不知道为啥没生效
+        fighter.deadAction = Dead;
+    }
 
+    public void Dead()
+    {
+	    Debug.Log("Persuer dead");
+	    Destroy(gameObject);
     }
 
     // Update is called once per frame

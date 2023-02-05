@@ -506,6 +506,18 @@ PrefabInstance:
       propertyPath: isAutoShoot
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8774088696775933741, guid: 614d8df3567384efea2b95f8c474ed30, type: 3}
+      propertyPath: canDamageTag.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8774088696775933741, guid: 614d8df3567384efea2b95f8c474ed30, type: 3}
+      propertyPath: canDamageTag.Array.data[0]
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8774088696775933741, guid: 614d8df3567384efea2b95f8c474ed30, type: 3}
+      propertyPath: canDamageTag.Array.data[1]
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 614d8df3567384efea2b95f8c474ed30, type: 3}
 --- !u!4 &894954758899703288 stripped

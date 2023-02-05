@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class RootGrow : MonoBehaviour
 {
-    public GameObject rootPrefab;
+    public List<GameObject> rootPrefabs;
     
     public Rigidbody2D rb;
 
@@ -40,7 +40,7 @@ public class RootGrow : MonoBehaviour
 
     public void ReRoot(Vector3 newStartPos)
     {
-        var newRoot = Instantiate(rootPrefab).GetComponent<Root>();
+        var newRoot = Instantiate(rootPrefabs[0]).GetComponent<Root>();
 
         newRoot.rootController = this;
         newRoot.index = 0;
@@ -75,7 +75,8 @@ public class RootGrow : MonoBehaviour
          * 将角色位置置为根的尾部
          */
 
-        var newRoot = Instantiate(rootPrefab).GetComponent<Root>();
+        // Debug.Log($"rootPrefabs count: {rootPrefabs.Count}");
+        var newRoot = Instantiate(rootPrefabs[0]).GetComponent<Root>();
         if (newRoot == null)
         {
             Debug.LogError("null root component!");
@@ -90,7 +91,7 @@ public class RootGrow : MonoBehaviour
         startPoint.Add(Vector3.zero);
 
         // 角色中心到脚底的偏移量
-        float offsetY = -0.8f;
+        float offsetY = -1f;
         startPoint[0] = rb.transform.position + new Vector3(0f, offsetY, 0f);
 
         newRoot.InitRootWithStart(startPoint[0]);
@@ -124,11 +125,26 @@ public class RootGrow : MonoBehaviour
         UpdatePlayerPos();
     }
 
+    public void GrowAnim()
+    {
+        /*
+         * 第一根root逐渐fill
+         * 第二根root位置先重置到第一根的start，再移动到end
+         * player的位置跟随最后一根root的end
+         */
+        Root firstRoot = roots[0];
+        Root secondRoot = roots[1];
+        Root lastRoot = roots.Last();
+        
+        firstRoot.GrowAnim(secondRoot.transform);
+        transform.DOMove(lastRoot.endPoint, 0.2f);
+    }
+
     public void TryGrowRoot()
     {
         if(rootNum >= rootNumMax) return;
         
-        var newRoot = Instantiate(rootPrefab).GetComponent<Root>();
+        var newRoot = Instantiate(rootPrefabs[rootNum]).GetComponent<Root>();
 
         newRoot.rootController = this;
         newRoot.index = rootNum;
@@ -137,8 +153,8 @@ public class RootGrow : MonoBehaviour
         rootNum++;
 
         startPoint.Insert(0, roots.First().startPoint);
-        newRoot.InitRootWithStart(startPoint[0]);
         roots[0].transform.SetParent(newRoot.transform);
+        newRoot.InitRootWithStart(startPoint[0]);
         var nextRoot = roots[0];
         roots.Insert(0, newRoot);
 
@@ -151,69 +167,12 @@ public class RootGrow : MonoBehaviour
         }
 
         // 重新设置角色位置
-        UpdatePlayerPos();
+        // UpdatePlayerPos();
         
         // newRoot.GrowAnim(nextRoot.transform);
+        GrowAnim();
     }
-
-    private void TryEnterRoot()
-    {
-        Debug.Log("Try Enter root state");
-        
-        // todo...
-        // 判断角色自身状态是否可以扎根
-        // 判断脚下平台是否可以扎根
-        // 判断是否达到最大根数
-        if (rootNum >= rootNumMax)
-        {
-            Debug.Log("Hit max root num!");
-            return;
-        }
-        
-        // todo 生成根并初始化
-        /*
-         * 生成根
-         * 根据角色位置确定和地面的接触位置
-         * 将角色位置置为根的尾部
-         */
-
-        var newRoot = Instantiate(rootPrefab).GetComponent<Root>();
-        if (newRoot == null)
-        {
-            Debug.LogError("null root component!");
-        }
-        
-        newRoot.rootController = this;
-        newRoot.index = rootNum;
-        // todo 动态长度
-        newRoot.len = 1f;
-        rootNum++;
-
-        // 第一节根，赋角色位置给根的起始位置
-        if (rootNum == 1)
-        {
-            startPoint.Add(Vector3.zero);
-
-            // 角色中心到脚底的偏移量
-            float offsetY = -0.8f;
-            startPoint[0] = rb.transform.position + new Vector3(0f, offsetY, 0f);
-
-            newRoot.InitRootWithStart(startPoint[0]);
-            roots.Add(newRoot);
-        }
-        
-        // 重新设置角色位置
-        UpdatePlayerPos();
-        
-
-
-
-        isRooting = true;
-        
-        // 取消重力影响
-        rb.gravityScale = 0;
-    }
-
+    
     private void UpdatePlayerPos()
     {
         // Vector3 targetPos = roots.Last().endPoint;

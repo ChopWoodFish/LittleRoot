@@ -148,6 +148,7 @@ public class OnRootState : PlayerState
 
     public override void Enter()
     {
+        playerController.anim.SetTrigger("Idle");
         if(!isCustomStartPos)
             rootController.StartRoot();
         else
@@ -155,8 +156,7 @@ public class OnRootState : PlayerState
             rootController.Reset();
             rootController.ReRoot(customStartPos);
         }
-
-        playerController.anim.SetTrigger("Idle");
+        
         playerController.rb.gravityScale = 0;
         rangeChecker.gameObject.SetActive(true);
     }

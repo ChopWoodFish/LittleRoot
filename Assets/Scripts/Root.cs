@@ -46,10 +46,13 @@ public class Root : MonoBehaviour
     {
         startPoint = pos;
         transform.position = startPoint;
+
+        rootSprite.sprite = Resources.Load<Sprite>($"Sprites/PlayerRoot{index + 2}");
+        
         UpdateRoot();
     }
 
-    public void GrowAnim(Transform trans)
+    public void GrowAnim(Transform trans = null)
     {
         float sizeX = rootSprite.size.x;
         rootSprite.size = new Vector2(sizeX, 0);
@@ -57,6 +60,7 @@ public class Root : MonoBehaviour
 
         if (trans != null)
         {
+            trans.transform.position = startPoint;
             trans.transform.DOMove(endTrans.position, 0.2f);   
         }
     }

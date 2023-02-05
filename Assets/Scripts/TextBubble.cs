@@ -9,16 +9,16 @@ public class TextBubble : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        targetVillager = GetComponent<Transform>();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        Vector2 screenPos = Camera.main.WorldToScreenPoint(targetVillager.position); 
+        Vector2 screenPos = Camera.main.WorldToScreenPoint(targetVillager.position);
 
-    
+
         var newBubble = Instantiate(TextBubbles);
         newBubble.transform.position = screenPos;
     }

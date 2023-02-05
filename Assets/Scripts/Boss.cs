@@ -21,7 +21,7 @@ public class Boss : MonoBehaviour
     {
         while (health > 0)
         {
-            if (Vector3.Distance(enemy.transform.position, transform.position) > 50f)
+            if (Vector3.Distance(enemy.transform.position, transform.position) > 40f)
             {
                 yield return null;
             }
@@ -77,7 +77,7 @@ public class Boss : MonoBehaviour
     {
         while (health > 0)
         {
-            if (Vector3.Distance(enemy.transform.position, transform.position) > 50f)
+            if (Vector3.Distance(enemy.transform.position, transform.position) > 40f)
             {
                 yield return null;
             }

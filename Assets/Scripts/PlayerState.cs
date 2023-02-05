@@ -163,6 +163,9 @@ public class OnRootState : PlayerState
 
     public override PlayerState Update()
     {
+        // 动画时不响应操作
+        if (rootController.isAnim) return null;
+        
         var HorizontalMove = Input.GetAxisRaw("Horizontal");
         
         // 存在左右方向按键时，摇摆
@@ -170,23 +173,23 @@ public class OnRootState : PlayerState
         {
             rootController.Swing(HorizontalMove);
         }
-        // 切换地方扎根
-        else if (Input.GetKeyDown(KeyCode.C))
-        {
-            // todo...
-            /*
-             * 判断是否可以重新扎根
-             * 撤回旧根
-             * 根据新的扎根位置重新初始化根
-             * 旋转player
-             */
-
-            if (!rangeChecker.isInRange) return null;
-            
-            rootController.Reset();
-            rootController.ReRoot(rangeChecker.hitPos);
-            
-        }
+        // // 切换地方扎根    // 集中到f键
+        // else if (Input.GetKeyDown(KeyCode.C))
+        // {
+        //     // todo...
+        //     /*
+        //      * 判断是否可以重新扎根
+        //      * 撤回旧根
+        //      * 根据新的扎根位置重新初始化根
+        //      * 旋转player
+        //      */
+        //
+        //     if (!rangeChecker.isInRange) return null;
+        //     
+        //     rootController.Reset();
+        //     rootController.ReRoot(rangeChecker.hitPos);
+        //     
+        // }
         // 撤销
         else if (Input.GetKeyDown(KeyCode.R))
         {
@@ -198,8 +201,17 @@ public class OnRootState : PlayerState
         // 进一步生长
         else if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("try more root");
-            rootController.TryGrowRoot();
+            if (rangeChecker.isInRange)
+            {
+                Debug.Log("try reroot");
+                rootController.Reset();
+                rootController.ReRoot(rangeChecker.hitPos);   
+            }
+            else
+            {
+                Debug.Log("try more root");
+                rootController.TryGrowRoot();   
+            }
         }
 
         return null;

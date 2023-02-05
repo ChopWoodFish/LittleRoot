@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 public class RootGrow : MonoBehaviour
@@ -22,6 +23,8 @@ public class RootGrow : MonoBehaviour
     public List<Vector3> startPoint = new List<Vector3>(3);
     public List<Vector3> endPoint = new List<Vector3>(capacity: 3);
     public List<Root> roots = new List<Root>(capacity: 3);
+
+    public bool isAnim;
 
     public void Reset()
     {
@@ -94,12 +97,20 @@ public class RootGrow : MonoBehaviour
         roots.Add(newRoot);
 
         // 重新设置角色位置
-        UpdatePlayerPos();
+        // UpdatePlayerPos();
         
         // todo 试试生长动画
         // Transform rootTrans = newRoot.rootSprite.transform;
         // rootTrans.localScale = new Vector3(1, 0, 1);
-
+        newRoot.GrowAnim(transform);
+        isAnim = true;
+        // 借助dotween延时一下
+        float animDur = 0f;
+        DOTween.To(() => animDur, value => animDur = value, 0.2f, 0.2f).OnComplete(() =>
+        {
+            isAnim = false;
+        });
+        
 
         isRooting = true;
 
@@ -128,6 +139,7 @@ public class RootGrow : MonoBehaviour
         startPoint.Insert(0, roots.First().startPoint);
         newRoot.InitRootWithStart(startPoint[0]);
         roots[0].transform.SetParent(newRoot.transform);
+        var nextRoot = roots[0];
         roots.Insert(0, newRoot);
 
         // 插入新根以后，重新计算所有根的点
@@ -140,6 +152,8 @@ public class RootGrow : MonoBehaviour
 
         // 重新设置角色位置
         UpdatePlayerPos();
+        
+        // newRoot.GrowAnim(nextRoot.transform);
     }
 
     private void TryEnterRoot()

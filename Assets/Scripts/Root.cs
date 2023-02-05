@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ public class Root : MonoBehaviour
     public Transform endTrans;
 
     public SpriteRenderer rootSprite;
+    public float totalSizeH;
 
     /// <summary>
     /// 旋转根
@@ -45,6 +47,18 @@ public class Root : MonoBehaviour
         startPoint = pos;
         transform.position = startPoint;
         UpdateRoot();
+    }
+
+    public void GrowAnim(Transform trans)
+    {
+        float sizeX = rootSprite.size.x;
+        rootSprite.size = new Vector2(sizeX, 0);
+        DOTween.To(() => rootSprite.size.y, value => rootSprite.size = new Vector2(sizeX, value), totalSizeH, 0.2f);
+
+        if (trans != null)
+        {
+            trans.transform.DOMove(endTrans.position, 0.2f);   
+        }
     }
 
     public void UpdateRoot()

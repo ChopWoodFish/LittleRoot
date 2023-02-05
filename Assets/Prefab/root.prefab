@@ -81,8 +81,8 @@ MonoBehaviour:
   endPoint: {x: 0, y: 0, z: 0}
   len: 0
   angle: 90
-  leftAngleBound: 60
-  rightAngleBound: 120
+  leftAngleBound: 50
+  rightAngleBound: 130
   rootController: {fileID: 0}
   startTrans: {fileID: 1857458721748921022}
   endTrans: {fileID: 4139033647926550246}
